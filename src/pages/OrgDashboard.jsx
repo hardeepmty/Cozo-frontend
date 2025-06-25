@@ -655,7 +655,7 @@ export default function OrgDashboard() {
         <CreateProjectModal
           orgId={orgId}
           onClose={() => setShowProjectModal(false)}
-          onCreate={handleCreateProject}
+          onSubmit={handleCreateProject}
           teams={teams}
         />
       )}
