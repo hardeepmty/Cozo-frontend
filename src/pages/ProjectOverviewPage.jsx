@@ -2,13 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
-// !!! IMPORTANT: Please VERIFY these import paths based on your EXACT file structure.
-// If ProjectOverviewPage.js is in 'src/pages/', and Sidebar/Alert are in 'src/components/', these paths are correct.
-// If your structure is different (e.g., ProjectOverviewPage is in 'src/views/projects/',
-// or Sidebar/Alert are in 'src/shared/components/'), you MUST adjust these paths.
-// Example for a different structure:
-// import Sidebar from '../../shared/components/Sidebar';
-// import Alert from '../../../../shared/components/Alert';
 import Sidebar from '../components/Sidebar'; // VERIFY THIS PATH
 import Alert from '../components/Alert';     // VERIFY THIS PATH
 

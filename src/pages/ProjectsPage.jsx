@@ -33,9 +33,6 @@ export default function ProjectsPage() {
         const orgRes = await axios.get(`http://localhost:5000/api/orgs/${orgId}`, config);
         setOrg(orgRes.data.data);
 
-        // Fetch all projects for this organization
-        // Ensure your backend's project route is configured to populate createdBy and teams
-        // e.g., Project.find({organization: orgId}).populate('createdBy', 'name').populate('teams', 'name')
         const projectsRes = await axios.get(`http://localhost:5000/api/projects/${orgId}`, config);
         setProjects(projectsRes.data.data);
 

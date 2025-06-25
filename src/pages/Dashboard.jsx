@@ -111,7 +111,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="flex min-h-screen" style={{ backgroundColor: "#EEEFE0" }}>
+    <div className="flex min-h-screen" style={{ backgroundColor: "#F8F8F8" }}>
       <Sidebar user={user} />
 
       <div className="flex-1 ml-0 md:ml-64 p-4 md:p-8">
