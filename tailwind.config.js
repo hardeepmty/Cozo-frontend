@@ -20,6 +20,11 @@ export default {
 
         'nav-blue': '#4A87D0', // The blue "Get Started" button in the top navigation
         'nav-link': '#5A6A7A', // Grey for nav links
+
+        'cozo-green': '#5a6f3b',          // The dark muted olive green from the Cozo logo
+        'cozo-light-beige': '#ecebe1',    // The light background from the Cozo logo image
+        'taskmaster-blue': '#3b82f6',     // Original  blue (if still needed elsewhere)
+        'cozo-dark-green': '#3d4b28',     // A darker shade of Cozo green, suitable for buttons
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
