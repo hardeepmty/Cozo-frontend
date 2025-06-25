@@ -10,14 +10,12 @@ const MyTasksPage = () => {
   const [sortBy, setSortBy] = useState('dueDate');
   const navigate = useNavigate();
 
-  // Status mapping to match your backend
   const statusMapping = {
     'not_started': 'todo',
     'in_progress': 'in-progress',
     'completed': 'done'
   };
 
-  // Tailwind equivalent colors for task status (used for left border)
   const statusTailwindColors = {
     'todo': 'border-yellow-500',     // Matches #ffbe0b
     'in-progress': 'border-blue-500', // Matches #3a86ff
