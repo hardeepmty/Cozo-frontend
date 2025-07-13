@@ -1,174 +1,160 @@
-// src/components/JoinOrgModal.jsx
-import { useState } from 'react';
-import { FiX, FiKey } from 'react-icons/fi';
-import axios from 'axios';
+"use client"
+
+import { useState } from "react"
+import { FiX, FiKey, FiUsers, FiLoader } from "react-icons/fi"
+import axios from "axios"
 
 export default function JoinOrgModal({ onClose, onOrgJoined }) {
-  const [joinCode, setJoinCode] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [joinCode, setJoinCode] = useState("")
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  // Clear error when user starts typing
+  const handleInputChange = (e) => {
+    setJoinCode(e.target.value)
+    if (error) setError("")
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!joinCode) {
-      setError('Please enter a join code');
-      return;
+      setError("Please enter a join code")
+      return
     }
 
-    setLoading(true);
-    setError('');
+    setLoading(true)
+    setError("")
 
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token")
       const res = await axios.post(
-        'http://localhost:5000/api/orgs/join',
+        "http://localhost:5000/api/orgs/join",
         { joinCode },
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-      
-      onOrgJoined(res.data.data);
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+
+      onOrgJoined(res.data.data)
     } catch (err) {
-      setError(err.response?.data?.error || 'Failed to join organization');
+      setError(err.response?.data?.error || "Failed to join organization")
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: 'rgba(0,0,0,0.5)',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 1000
-    }}>
-      <div style={{
-        backgroundColor: 'white',
-        borderRadius: '8px',
-        width: '100%',
-        maxWidth: '500px',
-        boxShadow: '0 4px 16px rgba(0,0,0,0.2)'
-      }}>
-        {/* Modal Header */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '1.5rem',
-          borderBottom: '1px solid #e2e8f0'
-        }}>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: '600' }}>
-            <FiKey style={{ marginRight: '0.5rem' }} />
-            Join Organization
-          </h2>
-          <button 
-            onClick={onClose}
-            style={{
-              backgroundColor: 'transparent',
-              border: 'none',
-              fontSize: '1.25rem',
-              cursor: 'pointer',
-              color: '#64748b'
-            }}
-          >
-            <FiX />
-          </button>
-        </div>
-
-        {/* Modal Body */}
-        <form onSubmit={handleSubmit} style={{ padding: '1.5rem' }}>
-          {error && (
-            <div style={{
-              backgroundColor: '#fee2e2',
-              color: '#b91c1c',
-              padding: '0.75rem',
-              borderRadius: '4px',
-              marginBottom: '1rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem'
-            }}>
-              {error}
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 animate-in fade-in duration-200">
+      <div className="bg-white/95 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl w-full max-w-md mx-4 flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-300">
+        {/* Header */}
+        <div className="flex-shrink-0 relative overflow-hidden rounded-t-2xl">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#5a6f3b] via-[#6b8142] to-[#3d4b28]"></div>
+          <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+          <div className="relative flex items-center justify-between p-6">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-white/20 backdrop-blur-sm rounded-xl">
+                <FiKey className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-white">Join Organization</h2>
+                <p className="text-white/80 text-sm">Enter your invitation code</p>
+              </div>
             </div>
-          )}
-
-          <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{
-              display: 'block',
-              marginBottom: '0.5rem',
-              fontWeight: '500'
-            }}>
-              Organization Join Code *
-            </label>
-            <input
-              type="text"
-              value={joinCode}
-              onChange={(e) => setJoinCode(e.target.value)}
-              placeholder="Enter the 6-digit join code"
-              required
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                border: '1px solid #e2e8f0',
-                borderRadius: '4px',
-                fontSize: '1rem'
-              }}
-            />
-            <p style={{ fontSize: '0.875rem', color: '#64748b', marginTop: '0.5rem' }}>
-              Ask an admin of the organization for the join code
-            </p>
-          </div>
-
-          {/* Modal Footer */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            gap: '1rem',
-            paddingTop: '1rem',
-            borderTop: '1px solid #e2e8f0'
-          }}>
             <button
-              type="button"
               onClick={onClose}
-              style={{
-                padding: '0.75rem 1.5rem',
-                borderRadius: '4px',
-                border: '1px solid #e2e8f0',
-                backgroundColor: 'white',
-                cursor: 'pointer',
-                fontWeight: '500'
-              }}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              style={{
-                padding: '0.75rem 1.5rem',
-                borderRadius: '4px',
-                backgroundColor: '#3b82f6',
-                color: 'white',
-                border: 'none',
-                cursor: 'pointer',
-                fontWeight: '500',
-                opacity: loading ? 0.7 : 1
-              }}
+              className="p-2 hover:bg-white/20 rounded-xl transition-all duration-200 group"
               disabled={loading}
             >
-              {loading ? 'Joining...' : 'Join Organization'}
+              <FiX className="w-5 h-5 text-white group-hover:rotate-90 transition-transform duration-200" />
             </button>
           </div>
-        </form>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 overflow-y-auto">
+          <form onSubmit={handleSubmit} className="p-6 space-y-6">
+            {/* Error Alert */}
+            {error && (
+              <div className="bg-red-50/80 backdrop-blur-sm border border-red-200/50 rounded-xl p-4 animate-in slide-in-from-top-2 duration-300">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  <p className="text-red-700 text-sm font-medium">{error}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Join Code Input */}
+            <div className="space-y-2">
+              <label className="block text-sm font-semibold text-gray-700">Organization Join Code *</label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={joinCode}
+                  onChange={handleInputChange}
+                  placeholder="Enter the 6-digit join code"
+                  required
+                  className="w-full px-4 py-3 bg-white/50 backdrop-blur-sm border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5a6f3b]/20 focus:border-[#5a6f3b]/50 transition-all duration-200 text-gray-900 placeholder-gray-500"
+                  disabled={loading}
+                />
+                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <FiUsers className="w-5 h-5 text-gray-400" />
+                </div>
+              </div>
+              <p className="text-xs text-gray-500 flex items-center space-x-1">
+                <span>💡</span>
+                <span>Ask an admin of the organization for the join code</span>
+              </p>
+            </div>
+
+            {/* Info Card */}
+            <div className="bg-gradient-to-r from-[#5a6f3b]/5 to-[#3d4b28]/5 backdrop-blur-sm border border-[#5a6f3b]/10 rounded-xl p-4">
+              <div className="flex items-start space-x-3">
+                <div className="p-2 bg-[#5a6f3b]/10 rounded-lg">
+                  <FiKey className="w-4 h-4 text-[#5a6f3b]" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 text-sm">How to join</h4>
+                  <p className="text-xs text-gray-600 mt-1">
+                    Enter the 6-digit code provided by your organization admin to join and start collaborating.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        {/* Footer */}
+        <div className="flex-shrink-0 flex items-center justify-end space-x-3 p-6 bg-gray-50/50 backdrop-blur-sm border-t border-gray-200/50 rounded-b-2xl">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-6 py-2.5 text-gray-700 bg-white/80 backdrop-blur-sm border border-gray-200/50 rounded-xl hover:bg-gray-50/80 transition-all duration-200 font-medium"
+            disabled={loading}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            disabled={loading || !joinCode}
+            className="px-6 py-2.5 bg-gradient-to-r from-[#5a6f3b] to-[#3d4b28] text-white rounded-xl hover:from-[#4a5f2b] hover:to-[#2d3b18] transition-all duration-200 font-medium shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+          >
+            {loading ? (
+              <>
+                <FiLoader className="w-4 h-4 animate-spin" />
+                <span>Joining...</span>
+              </>
+            ) : (
+              <>
+                <FiUsers className="w-4 h-4" />
+                <span>Join Organization</span>
+              </>
+            )}
+          </button>
+        </div>
       </div>
     </div>
-  );
+  )
 }
