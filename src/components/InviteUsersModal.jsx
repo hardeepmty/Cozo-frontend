@@ -28,7 +28,7 @@ export default function InviteUsersModal({ show, onClose, orgId, currentOrgMembe
         try {
           const token = localStorage.getItem("token")
           const config = { headers: { Authorization: `Bearer ${token}` } }
-          const usersRes = await axios.get("http://localhost:5000/api/auth/users", config)
+          const usersRes = await axios.get("https://cozo-backend.onrender.com/api/auth/users", config)
           setAllPlatformUsers(usersRes.data.data)
         } catch (err) {
           console.error("Failed to fetch platform users:", err)
@@ -89,7 +89,7 @@ export default function InviteUsersModal({ show, onClose, orgId, currentOrgMembe
       }
 
       const res = await axios.post(
-        `http://localhost:5000/api/orgs/${orgId}/invite`,
+        `https://cozo-backend.onrender.com/api/orgs/${orgId}/invite`,
         { emails: selectedUserEmails },
         config,
       )

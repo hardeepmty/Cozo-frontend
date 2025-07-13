@@ -33,10 +33,10 @@ export default function ProjectsPage() {
         }
 
         // Fetch organization details
-        const orgRes = await axios.get(`http://localhost:5000/api/orgs/${orgId}`, config)
+        const orgRes = await axios.get(`https://cozo-backend.onrender.com/api/orgs/${orgId}`, config)
         setOrg(orgRes.data.data)
 
-        const projectsRes = await axios.get(`http://localhost:5000/api/projects/${orgId}`, config)
+        const projectsRes = await axios.get(`https://cozo-backend.onrender.com/api/projects/${orgId}`, config)
         setProjects(projectsRes.data.data)
       } catch (err) {
         console.error("Failed to fetch projects data:", err)

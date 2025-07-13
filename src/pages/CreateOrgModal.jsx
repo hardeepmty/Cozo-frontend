@@ -29,7 +29,7 @@ export default function CreateOrgModal({ onClose, onOrgCreated }) {
     setIsSubmitting(true)
     try {
       const token = localStorage.getItem('token')
-      const res = await axios.post('http://localhost:5000/api/orgs', formData, {
+      const res = await axios.post('https://cozo-backend.onrender.com/api/orgs', formData, {
         headers: {
           Authorization: `Bearer ${token}`
         }

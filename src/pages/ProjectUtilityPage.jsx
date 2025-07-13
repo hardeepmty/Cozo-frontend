@@ -32,15 +32,15 @@ export default function ProjectUtilityPage() {
         const config = { headers: { Authorization: `Bearer ${token}` } }
 
         // Fetch project details
-        const projectRes = await axios.get(`http://localhost:5000/api/projects/single/${projectId}`, config)
+        const projectRes = await axios.get(`https://cozo-backend.onrender.com/api/projects/single/${projectId}`, config)
         setCurrentProject(projectRes.data.data)
 
         // Fetch organization details
-        const orgRes = await axios.get(`http://localhost:5000/api/orgs/${orgId}`, config)
+        const orgRes = await axios.get(`https://cozo-backend.onrender.com/api/orgs/${orgId}`, config)
         setCurrentOrg(orgRes.data.data)
 
         // Fetch utility items for this project
-        const itemsRes = await axios.get(`http://localhost:5000/api/utility-items/project/${projectId}`, config)
+        const itemsRes = await axios.get(`https://cozo-backend.onrender.com/api/utility-items/project/${projectId}`, config)
         setUtilityItems(itemsRes.data.data)
       } catch (err) {
         console.error("Failed to fetch utility data:", err)
@@ -71,7 +71,7 @@ export default function ProjectUtilityPage() {
       if (editingItem) {
         // Update existing item
         const res = await axios.put(
-          `http://localhost:5000/api/utility-items/${editingItem._id}`,
+          `https://cozo-backend.onrender.com/api/utility-items/${editingItem._id}`,
           { name: itemName, value: itemValue },
           config,
         )
@@ -80,7 +80,7 @@ export default function ProjectUtilityPage() {
       } else {
         // Create new item
         const res = await axios.post(
-          "http://localhost:5000/api/utility-items",
+          "https://cozo-backend.onrender.com/api/utility-items",
           { name: itemName, value: itemValue, project: projectId },
           config,
         )
@@ -106,7 +106,7 @@ export default function ProjectUtilityPage() {
     try {
       const token = localStorage.getItem("token")
       const config = { headers: { Authorization: `Bearer ${token}` } }
-      await axios.delete(`http://localhost:5000/api/utility-items/${itemToDelete._id}`, config)
+      await axios.delete(`https://cozo-backend.onrender.com/api/utility-items/${itemToDelete._id}`, config)
       setUtilityItems(utilityItems.filter((item) => item._id !== itemToDelete._id))
       setError("")
     } catch (err) {

@@ -40,7 +40,7 @@ const MyTasksPage = () => {
           navigate('/login');
           return;
         }
-        const res = await axios.get('http://localhost:5000/api/tasks/my-tasks', {
+        const res = await axios.get('https://cozo-backend.onrender.com/api/tasks/my-tasks', {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -99,7 +99,7 @@ const MyTasksPage = () => {
       ) || newStatus; // Fallback to newStatus if no mapping found
 
       await axios.put(
-        `http://localhost:5000/api/tasks/${taskId}/status`,
+        `https://cozo-backend.onrender.com/api/tasks/${taskId}/status`,
         { status: backendStatus }, // Send the backend-compatible status
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -28,7 +28,7 @@ export default function JoinOrgModal({ onClose, onOrgJoined }) {
     try {
       const token = localStorage.getItem("token")
       const res = await axios.post(
-        "http://localhost:5000/api/orgs/join",
+        "https://cozo-backend.onrender.com/api/orgs/join",
         { joinCode },
         {
           headers: {

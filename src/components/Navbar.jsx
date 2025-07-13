@@ -39,8 +39,8 @@ export default function Navbar() {
               Authorization: `Bearer ${token}`
             }
           };
-          // Assuming 'http://localhost:5000/api/auth/me' is correct for your backend
-          const res = await axios.get('http://localhost:5000/api/auth/me', config);
+          // Assuming 'https://cozo-backend.onrender.com/api/auth/me' is correct for your backend
+          const res = await axios.get('https://cozo-backend.onrender.com/api/auth/me', config);
           setLoggedInUser(res.data.data);
         } catch (err) {
           console.error('Failed to fetch user data, clearing token:', err);

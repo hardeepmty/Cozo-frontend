@@ -30,15 +30,15 @@ export default function KanbanBoard({ projectId, onTaskUpdate }) {
         }
 
         // Fetch current user data
-        const userRes = await axios.get("http://localhost:5000/api/auth/me", config)
+        const userRes = await axios.get("https://cozo-backend.onrender.com/api/auth/me", config)
         setCurrentUser(userRes.data.data)
 
         // Fetch all project tasks
-        const tasksRes = await axios.get(`http://localhost:5000/api/tasks/project/${projectId}`, config)
+        const tasksRes = await axios.get(`https://cozo-backend.onrender.com/api/tasks/project/${projectId}`, config)
         setTasks(tasksRes.data.data)
 
         // Fetch user's tasks
-        const myTasksRes = await axios.get("http://localhost:5000/api/tasks/my-tasks", config)
+        const myTasksRes = await axios.get("https://cozo-backend.onrender.com/api/tasks/my-tasks", config)
         setUserTasks(myTasksRes.data.data.map((task) => task._id))
       } catch (err) {
         setError(err.response?.data?.error || "Failed to load data")

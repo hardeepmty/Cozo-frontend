@@ -38,15 +38,15 @@ export default function ProjectOverviewPage() {
         }
 
         // Fetch organization details for sidebar
-        const orgRes = await axios.get(`http://localhost:5000/api/orgs/${orgId}`, config)
+        const orgRes = await axios.get(`https://cozo-backend.onrender.com/api/orgs/${orgId}`, config)
         setOrg(orgRes.data.data)
 
         // Fetch project details
-        const projectRes = await axios.get(`http://localhost:5000/api/projects/single/${projectId}`, config)
+        const projectRes = await axios.get(`https://cozo-backend.onrender.com/api/projects/single/${projectId}`, config)
         setProject(projectRes.data.data)
 
         // Fetch tasks for this project to calculate completion
-        const tasksRes = await axios.get(`http://localhost:5000/api/tasks/project/${projectId}`, config)
+        const tasksRes = await axios.get(`https://cozo-backend.onrender.com/api/tasks/project/${projectId}`, config)
         setTasks(tasksRes.data.data)
       } catch (err) {
         console.error("Failed to fetch project data:", err)

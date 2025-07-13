@@ -40,11 +40,11 @@ export default function OrgDashboard() {
         },
       }
 
-      const userRes = await axios.get("http://localhost:5000/api/auth/me", config)
+      const userRes = await axios.get("https://cozo-backend.onrender.com/api/auth/me", config)
       const currentUserId = userRes.data.data._id
       setLoggedInUserId(currentUserId)
 
-      const orgRes = await axios.get(`http://localhost:5000/api/orgs/${orgId}`, config)
+      const orgRes = await axios.get(`https://cozo-backend.onrender.com/api/orgs/${orgId}`, config)
       setOrg(orgRes.data.data)
       setMembers(orgRes.data.data.members)
 
@@ -53,13 +53,13 @@ export default function OrgDashboard() {
       )
       setUserOrgRole(currentUserMember ? currentUserMember.role : null)
 
-      const projectsRes = await axios.get(`http://localhost:5000/api/projects/${orgId}`, config)
+      const projectsRes = await axios.get(`https://cozo-backend.onrender.com/api/projects/${orgId}`, config)
       setProjects(projectsRes.data.data)
       if (projectsRes.data.data.length > 0) {
         setSelectedProject(projectsRes.data.data[0])
       }
 
-      const teamsRes = await axios.get(`http://localhost:5000/api/teams/${orgId}`, config)
+      const teamsRes = await axios.get(`https://cozo-backend.onrender.com/api/teams/${orgId}`, config)
       setTeams(teamsRes.data.data)
     } catch (err) {
       setError(err.response?.data?.error || "Failed to load organization data")
@@ -78,7 +78,7 @@ export default function OrgDashboard() {
   const handleCreateProject = async (projectData) => {
     try {
       const token = localStorage.getItem("token")
-      const res = await axios.post(`http://localhost:5000/api/projects/${orgId}`, projectData, {
+      const res = await axios.post(`https://cozo-backend.onrender.com/api/projects/${orgId}`, projectData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -95,7 +95,7 @@ export default function OrgDashboard() {
     try {
       const token = localStorage.getItem("token")
       const res = await axios.post(
-        "http://localhost:5000/api/tasks",
+        "https://cozo-backend.onrender.com/api/tasks",
         {
           ...taskData,
           project: selectedProject ? selectedProject._id : null,
@@ -116,7 +116,7 @@ export default function OrgDashboard() {
   const handleCreateTeam = async (teamData) => {
     try {
       const token = localStorage.getItem("token")
-      const res = await axios.post(`http://localhost:5000/api/teams/${orgId}`, teamData, {
+      const res = await axios.post(`https://cozo-backend.onrender.com/api/teams/${orgId}`, teamData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -140,7 +140,7 @@ export default function OrgDashboard() {
     try {
       const token = localStorage.getItem("token")
       await axios.put(
-        `http://localhost:5000/api/tasks/${taskId}/status`,
+        `https://cozo-backend.onrender.com/api/tasks/${taskId}/status`,
         { status: newStatus },
         {
           headers: {

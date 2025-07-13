@@ -48,11 +48,11 @@ export default function ProjectCalendarPage() {
         },
       }
 
-      const orgRes = await axios.get(`http://localhost:5000/api/orgs/${orgId}`, config)
+      const orgRes = await axios.get(`https://cozo-backend.onrender.com/api/orgs/${orgId}`, config)
       setOrg(orgRes.data.data)
 
       if (!userOrgRole || !loggedInUserId) {
-        const userRes = await axios.get("http://localhost:5000/api/auth/me", config)
+        const userRes = await axios.get("https://cozo-backend.onrender.com/api/auth/me", config)
         const currentUserIdFromAPI = userRes.data.data._id
         const orgMembers = orgRes.data.data.members
         const currentUserMember = orgMembers.find((member) => member.user && member.user._id === currentUserIdFromAPI)
@@ -60,10 +60,10 @@ export default function ProjectCalendarPage() {
         setLoggedInUserId(currentUserIdFromAPI)
       }
 
-      const projectRes = await axios.get(`http://localhost:5000/api/projects/single/${projectId}`, config)
+      const projectRes = await axios.get(`https://cozo-backend.onrender.com/api/projects/single/${projectId}`, config)
       setProject(projectRes.data.data)
 
-      const eventsRes = await axios.get(`http://localhost:5000/api/events/projects/${projectId}/events`, config)
+      const eventsRes = await axios.get(`https://cozo-backend.onrender.com/api/events/projects/${projectId}/events`, config)
       setCalendarEvents(eventsRes.data.data)
     } catch (err) {
       console.error("Failed to fetch calendar data:", err)
@@ -117,10 +117,10 @@ export default function ProjectCalendarPage() {
       const config = { headers: { Authorization: `Bearer ${token}` } }
 
       if (isEditMode && currentEventData) {
-        const res = await axios.put(`http://localhost:5000/api/events/${currentEventData.id}`, formData, config)
+        const res = await axios.put(`https://cozo-backend.onrender.com/api/events/${currentEventData.id}`, formData, config)
         setError(res.data.message || "Event updated successfully!")
       } else {
-        const res = await axios.post(`http://localhost:5000/api/events/projects/${projectId}/events`, formData, config)
+        const res = await axios.post(`https://cozo-backend.onrender.com/api/events/projects/${projectId}/events`, formData, config)
         setError(res.data.message || "Event created successfully!")
       }
       setShowEventModal(false)
@@ -140,7 +140,7 @@ export default function ProjectCalendarPage() {
       const token = localStorage.getItem("token")
       const config = { headers: { Authorization: `Bearer ${token}` } }
 
-      const res = await axios.delete(`http://localhost:5000/api/events/${eventId}`, config)
+      const res = await axios.delete(`https://cozo-backend.onrender.com/api/events/${eventId}`, config)
       setError(res.data.message || "Event deleted successfully!")
       setShowEventModal(false)
       fetchCalendarData() // Re-fetch events to update the calendar

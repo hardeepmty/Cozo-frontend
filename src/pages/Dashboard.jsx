@@ -36,18 +36,18 @@ export default function Dashboard() {
         }
 
         // Fetch user data
-        const userRes = await axios.get("http://localhost:5000/api/auth/me", config)
+        const userRes = await axios.get("https://cozo-backend.onrender.com/api/auth/me", config)
         setUser(userRes.data.data)
 
         // Fetch organizations
-        const orgsRes = await axios.get("http://localhost:5000/api/orgs", config)
+        const orgsRes = await axios.get("https://cozo-backend.onrender.com/api/orgs", config)
         setOrganizations(orgsRes.data.data)
 
         // Fetch projects for each organization
         const allProjects = []
         for (const org of orgsRes.data.data) {
           try {
-            const projectsRes = await axios.get(`http://localhost:5000/api/projects/${org._id}`, config)
+            const projectsRes = await axios.get(`https://cozo-backend.onrender.com/api/projects/${org._id}`, config)
             allProjects.push(...projectsRes.data.data)
           } catch (err) {
             console.error(`Failed to fetch projects for org ${org._id}:`, err)
